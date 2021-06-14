@@ -4,7 +4,7 @@ import Timer from "./Timer";
 let min = 0;
 let sec = 5;
 
-const Todo = ({ text, todo, todos, setTodos, setFocusMode }) => {
+const Todo = ({ text, todo, todos, setTodos, focusMode, setFocusMode }) => {
   const [cnt, setCnt] = useState(0); //tomato cnt
   const [isActive, setIsActive] = useState(false);
   const deleteHandler = () => {
@@ -25,7 +25,6 @@ const Todo = ({ text, todo, todos, setTodos, setFocusMode }) => {
   };
 
   const TimerHandler = () => {
-    console.log("change active");
     setIsActive(!isActive);
     setFocusMode(true);
     setTodos(
@@ -33,41 +32,40 @@ const Todo = ({ text, todo, todos, setTodos, setFocusMode }) => {
         if (item.id === todo.id) {
           return {
             ...item,
-            active: !item.active,
+            active: true,
           };
         }
         return item;
       })
     );
   };
-
-  return (
-    <div className="todo">
-      <li className={`todo-item ${todo.completed ? "completed" : ""}`}>
-        {text}
-      </li>
-      <button onClick={completeHandler} className="complete-btn">
-        <i className="fas fa-check"></i>
-      </button>
-      <button
-        onClick={() => {
-          if (window.confirm("Delete the item?")) {
-            deleteHandler();
-          }
-        }}
-        className="trash-btn"
-      >
-        <i className="fas fa-trash"></i>
-      </button>
-      <button
-        onClick={TimerHandler}
-        className={`timer-btn ${isActive ? "actived" : ""}`}
-      >
-        <i className="fas fa-clock">
-          <span className="text_bottom">&nbsp; {cnt} </span>
-        </i>
-      </button>
-      <li className="todo-item">
+  if (!focusMode) {
+    return (
+      <div className="todo">
+        <li className={`todo-item ${todo.completed ? "completed" : ""}`}>
+          {text}
+        </li>
+        <button onClick={completeHandler} className="complete-btn">
+          <i className="fas fa-check"></i>
+        </button>
+        <button
+          onClick={() => {
+            if (window.confirm("Delete the item?")) {
+              deleteHandler();
+            }
+          }}
+          className="trash-btn"
+        >
+          <i className="fas fa-trash"></i>
+        </button>
+        <button
+          onClick={TimerHandler}
+          className={`timer-btn ${isActive ? "actived" : ""}`}
+        >
+          <i className="fas fa-clock">
+            <span className="text_bottom">&nbsp; {cnt} </span>
+          </i>
+        </button>
         <Timer
           initialMinute={min}
           initialSeconds={sec}
@@ -75,11 +73,38 @@ const Todo = ({ text, todo, todos, setTodos, setFocusMode }) => {
           cnt={cnt}
           setCnt={setCnt}
           setIsActive={setIsActive}
+          focusMode={focusMode}
           setFocusMode={setFocusMode}
         />
-      </li>
-    </div>
-  );
+      </div>
+    );
+  } else {
+    return (
+      <div className="todo">
+        <li className={`todo-item ${todo.completed ? "completed" : ""}`}>
+          {text}
+        </li>
+        <button
+          onClick={TimerHandler}
+          className={`timer-btn ${isActive ? "actived" : ""}`}
+        >
+          <i className="fas fa-clock">
+            <span className="text_bottom">&nbsp; {cnt} </span>
+          </i>
+        </button>
+        <Timer
+          initialMinute={min}
+          initialSeconds={sec}
+          isActive={isActive}
+          cnt={cnt}
+          setCnt={setCnt}
+          setIsActive={setIsActive}
+          focusMode={focusMode}
+          setFocusMode={setFocusMode}
+        />
+      </div>
+    );
+  }
 };
 
 export default Todo;

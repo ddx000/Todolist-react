@@ -8,6 +8,7 @@ const Timer = ({
   cnt,
   setCnt,
   setIsActive,
+  focusMode,
   setFocusMode,
 }) => {
   //const { initialMinute = 25, initialSeconds = 0 } = props;
@@ -39,15 +40,18 @@ const Timer = ({
       clearInterval(myInterval);
     };
   });
-
-  return (
-    <div>
-      <h1>
-        {" "}
-        {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
-      </h1>
-    </div>
-  );
+  if (focusMode) {
+    return (
+      <div>
+        <h1>
+          {" "}
+          {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+        </h1>
+      </div>
+    );
+  } else {
+    return null;
+  }
 };
 
 export default Timer;
