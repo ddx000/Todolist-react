@@ -8,6 +8,7 @@ const Timer = ({
   cnt,
   setCnt,
   setIsActive,
+  setFocusMode,
 }) => {
   //const { initialMinute = 25, initialSeconds = 0 } = props;
   const [minutes, setMinutes] = useState(initialMinute);
@@ -25,6 +26,7 @@ const Timer = ({
             setMinutes(initialMinute);
             setSeconds(initialSeconds);
             setIsActive(false);
+            setFocusMode(false);
             setCnt(cnt + 1);
           } else {
             setMinutes(minutes - 1);

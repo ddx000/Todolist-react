@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import Timer from "./Timer";
 
-let min = 1;
-let sec = 10;
+let min = 0;
+let sec = 5;
 
-const Todo = ({ text, todo, todos, setTodos }) => {
+const Todo = ({ text, todo, todos, setTodos, setFocusMode }) => {
   const [cnt, setCnt] = useState(0); //tomato cnt
   const [isActive, setIsActive] = useState(false);
   const deleteHandler = () => {
@@ -23,9 +23,22 @@ const Todo = ({ text, todo, todos, setTodos }) => {
       })
     );
   };
+
   const TimerHandler = () => {
     console.log("change active");
     setIsActive(!isActive);
+    setFocusMode(true);
+    setTodos(
+      todos.map((item) => {
+        if (item.id === todo.id) {
+          return {
+            ...item,
+            active: !item.active,
+          };
+        }
+        return item;
+      })
+    );
   };
 
   return (
@@ -62,6 +75,7 @@ const Todo = ({ text, todo, todos, setTodos }) => {
           cnt={cnt}
           setCnt={setCnt}
           setIsActive={setIsActive}
+          setFocusMode={setFocusMode}
         />
       </li>
     </div>
