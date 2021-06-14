@@ -66,6 +66,7 @@ form button:hover {
 }
 
 .trash-btn,
+.timer-btn,
 .complete-btn {
   background: #ff6f47;
   color: white;
@@ -77,8 +78,14 @@ form button:hover {
 .complete-btn {
   background: rgb(11, 212, 162);
 }
+.timer-btn {
+  background: rgb(110, 9, 243);
+}
 .todo-item {
   padding: 0rem 0.5rem;
+}
+.actived {
+  opacity: 0.5;
 }
 
 .fa-trash,
