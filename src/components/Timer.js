@@ -5,30 +5,31 @@ const Timer = ({
   initialMinute,
   initialSeconds,
   isActive,
-  cnt,
-  setCnt,
+  countHandler,
   setIsActive,
   focusMode,
   setFocusMode,
+  statusHandler,
 }) => {
   //const { initialMinute = 25, initialSeconds = 0 } = props;
   const [minutes, setMinutes] = useState(initialMinute);
   const [seconds, setSeconds] = useState(initialSeconds);
   useEffect(() => {
-    console.log("use effect", minutes, seconds);
     let myInterval = setInterval(() => {
       if (isActive) {
-        console.log("###");
         setSeconds(seconds - 1);
         if (seconds === 0) {
           if (minutes === 0) {
-            console.log("clear");
+            // time is up
             clearInterval(myInterval);
+            // reset
             setMinutes(initialMinute);
             setSeconds(initialSeconds);
+            // not active and cnt+1
             setIsActive(false);
             setFocusMode(false);
-            setCnt(cnt + 1);
+            countHandler();
+            statusHandler(false);
           } else {
             setMinutes(minutes - 1);
             setSeconds(59);

@@ -4,7 +4,15 @@ import Timer from "./Timer";
 let min = 0;
 let sec = 5;
 
-const Todo = ({ text, todo, todos, setTodos, focusMode, setFocusMode }) => {
+const Todo = ({
+  text,
+  todo,
+  todos,
+  todoCnt,
+  setTodos,
+  focusMode,
+  setFocusMode,
+}) => {
   const [cnt, setCnt] = useState(0); //tomato cnt
   const [isActive, setIsActive] = useState(false);
   const deleteHandler = () => {
@@ -24,22 +32,40 @@ const Todo = ({ text, todo, todos, setTodos, focusMode, setFocusMode }) => {
     );
   };
 
-  const TimerHandler = () => {
-    setIsActive(!isActive);
-    setFocusMode(true);
+  const countHandler = () => {
+    console.log("djkfko");
     setTodos(
       todos.map((item) => {
         if (item.id === todo.id) {
           return {
             ...item,
-            active: true,
+            cnt: todo.cnt + 1,
           };
         }
         return item;
       })
     );
   };
+
+  const statusHandler = (status) => {
+    // status == true or false
+    setIsActive(status);
+    setFocusMode(status);
+    setTodos(
+      todos.map((item) => {
+        if (item.id === todo.id) {
+          return {
+            ...item,
+            active: status,
+          };
+        }
+        return item;
+      })
+    );
+  };
+
   if (!focusMode) {
+    // LIST MODE
     return (
       <div className="todo">
         <li className={`todo-item ${todo.completed ? "completed" : ""}`}>
@@ -59,48 +85,40 @@ const Todo = ({ text, todo, todos, setTodos, focusMode, setFocusMode }) => {
           <i className="fas fa-trash"></i>
         </button>
         <button
-          onClick={TimerHandler}
+          onClick={() => statusHandler(true)}
           className={`timer-btn ${isActive ? "actived" : ""}`}
         >
           <i className="fas fa-clock">
-            <span className="text_bottom">&nbsp; {cnt} </span>
+            <span className="text_bottom">{todoCnt}</span>
           </i>
         </button>
-        <Timer
-          initialMinute={min}
-          initialSeconds={sec}
-          isActive={isActive}
-          cnt={cnt}
-          setCnt={setCnt}
-          setIsActive={setIsActive}
-          focusMode={focusMode}
-          setFocusMode={setFocusMode}
-        />
       </div>
     );
   } else {
+    // FOCUS MODE
     return (
       <div className="todo">
         <li className={`todo-item ${todo.completed ? "completed" : ""}`}>
           {text}
         </li>
         <button
-          onClick={TimerHandler}
+          onClick={() => statusHandler(true)}
           className={`timer-btn ${isActive ? "actived" : ""}`}
         >
           <i className="fas fa-clock">
-            <span className="text_bottom">&nbsp; {cnt} </span>
+            <span className="text_bottom">&nbsp; {todoCnt} </span>
           </i>
         </button>
         <Timer
           initialMinute={min}
           initialSeconds={sec}
           isActive={isActive}
-          cnt={cnt}
-          setCnt={setCnt}
+          cnt={todoCnt}
+          countHandler={countHandler}
           setIsActive={setIsActive}
           focusMode={focusMode}
           setFocusMode={setFocusMode}
+          statusHandler={statusHandler}
         />
       </div>
     );

@@ -11,6 +11,7 @@ const TodoList = ({ todos, setTodos, focusMode, setFocusMode }) => {
             text={todo.text}
             todos={todos}
             todo={todo}
+            todoCnt={todo.cnt}
             setTodos={setTodos}
             focusMode={focusMode}
             setFocusMode={setFocusMode}
