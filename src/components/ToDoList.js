@@ -7,6 +7,7 @@ const TodoList = ({
   filteredTodos,
   focusMode,
   setFocusMode,
+  mins,
 }) => {
   return (
     <div className="todo-container">
@@ -20,6 +21,7 @@ const TodoList = ({
             setTodos={setTodos}
             focusMode={focusMode}
             setFocusMode={setFocusMode}
+            mins={mins}
           />
         ))}
       </ul>

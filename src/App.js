@@ -10,6 +10,7 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [focusMode, setFocusMode] = useState(false);
   const [filteredTodos, setFilteredTodos] = useState([]);
+  const [mins, setMins] = useState(25);
 
   useEffect(() => {
     getLocalTodos();
@@ -61,6 +62,7 @@ function App() {
         filteredTodos={filteredTodos} // for render
         focusMode={focusMode}
         setFocusMode={setFocusMode}
+        mins={mins}
       />
     </div>
   );

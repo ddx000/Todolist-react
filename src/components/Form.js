@@ -13,6 +13,7 @@ const Form = ({ inputText, setInputText, todos, setTodos }) => {
         text: inputText,
         completed: false,
         active: false,
+        cnt: 0,
         id: Math.random() * 1000,
       },
     ]);
@@ -29,6 +30,14 @@ const Form = ({ inputText, setInputText, todos, setTodos }) => {
       />
       <button onClick={submitTodoHandler} className="todo-button" type="submit">
         <i className="fas fa-plus-square"></i>
+      </button>
+
+      <button
+        onClick={() => localStorage.clear()}
+        className="todo-button"
+        type="submit"
+      >
+        <i className="fas fa-trash-alt"></i>
       </button>
     </form>
   );

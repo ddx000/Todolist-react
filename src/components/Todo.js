@@ -1,15 +1,22 @@
 import React, { useState } from "react";
 import Timer from "./Timer";
 
-let min = 0;
 let sec = 5;
 
-const Todo = ({ text, todo, todos, setTodos, focusMode, setFocusMode }) => {
-  const [cnt, setCnt] = useState(0); //tomato cnt
+const Todo = ({
+  text,
+  todo,
+  todos,
+  setTodos,
+  focusMode,
+  setFocusMode,
+  mins,
+}) => {
   const [isActive, setIsActive] = useState(false);
   const deleteHandler = () => {
     setTodos(todos.filter((el) => el.id !== todo.id));
   };
+
   const completeHandler = () => {
     setTodos(
       todos.map((item) => {
@@ -50,7 +57,8 @@ const Todo = ({ text, todo, todos, setTodos, focusMode, setFocusMode }) => {
         if (item.id === todo.id) {
           return {
             ...item,
-            active: false,
+            active: false, // set active to false
+            cnt: todo.cnt + 1, // add cnt
           };
         }
         return item;
@@ -82,7 +90,7 @@ const Todo = ({ text, todo, todos, setTodos, focusMode, setFocusMode }) => {
           className={`timer-btn ${isActive ? "actived" : ""}`}
         >
           <i className="fas fa-clock">
-            <span className="text_bottom">&nbsp; {cnt} </span>
+            <span className="text_bottom">&nbsp; {todo.cnt} </span>
           </i>
         </button>
       </div>
@@ -99,15 +107,13 @@ const Todo = ({ text, todo, todos, setTodos, focusMode, setFocusMode }) => {
           className={`timer-btn ${isActive ? "actived" : ""}`}
         >
           <i className="fas fa-clock">
-            <span className="text_bottom">&nbsp; {cnt} </span>
+            <span className="text_bottom">&nbsp; {todo.cnt} </span>
           </i>
         </button>
         <Timer
-          initialMinute={min}
+          initialMinute={mins}
           initialSeconds={sec}
           isActive={isActive}
-          cnt={cnt}
-          setCnt={setCnt}
           setIsActive={setIsActive}
           focusMode={focusMode}
           setFocusMode={setFocusMode}

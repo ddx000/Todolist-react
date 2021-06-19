@@ -24,7 +24,6 @@ const Timer = ({
             clearInterval(myInterval);
             setMinutes(initialMinute);
             setSeconds(initialSeconds);
-            setCnt(cnt + 1);
             TimeUpHandler();
           } else {
             setMinutes(minutes - 1);
