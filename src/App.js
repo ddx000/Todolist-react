@@ -56,8 +56,9 @@ function App() {
         setInputText={setInputText}
       />
       <TodoList
-        todos={filteredTodos}
+        todos={todos}
         setTodos={setTodos}
+        filteredTodos={filteredTodos} // for render
         focusMode={focusMode}
         setFocusMode={setFocusMode}
       />

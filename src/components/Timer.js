@@ -7,9 +7,7 @@ const Timer = ({
   isActive,
   cnt,
   setCnt,
-  setIsActive,
-  focusMode,
-  setFocusMode,
+  TimeUpHandler,
 }) => {
   //const { initialMinute = 25, initialSeconds = 0 } = props;
   const [minutes, setMinutes] = useState(initialMinute);
@@ -26,9 +24,8 @@ const Timer = ({
             clearInterval(myInterval);
             setMinutes(initialMinute);
             setSeconds(initialSeconds);
-            setIsActive(false);
-            setFocusMode(false);
             setCnt(cnt + 1);
+            TimeUpHandler();
           } else {
             setMinutes(minutes - 1);
             setSeconds(59);
@@ -40,18 +37,14 @@ const Timer = ({
       clearInterval(myInterval);
     };
   });
-  if (focusMode) {
-    return (
-      <div>
-        <h1>
-          {" "}
-          {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
-        </h1>
-      </div>
-    );
-  } else {
-    return null;
-  }
+  return (
+    <div>
+      <h1>
+        {" "}
+        {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+      </h1>
+    </div>
+  );
 };
 
 export default Timer;

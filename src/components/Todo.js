@@ -25,6 +25,7 @@ const Todo = ({ text, todo, todos, setTodos, focusMode, setFocusMode }) => {
   };
 
   const TimerHandler = () => {
+    // time start
     setIsActive(!isActive);
     setFocusMode(true);
     setTodos(
@@ -39,6 +40,24 @@ const Todo = ({ text, todo, todos, setTodos, focusMode, setFocusMode }) => {
       })
     );
   };
+
+  const TimeUpHandler = () => {
+    // time end
+    setIsActive(false);
+    setFocusMode(false);
+    setTodos(
+      todos.map((item) => {
+        if (item.id === todo.id) {
+          return {
+            ...item,
+            active: false,
+          };
+        }
+        return item;
+      })
+    );
+  };
+
   if (!focusMode) {
     return (
       <div className="todo">
@@ -66,19 +85,10 @@ const Todo = ({ text, todo, todos, setTodos, focusMode, setFocusMode }) => {
             <span className="text_bottom">&nbsp; {cnt} </span>
           </i>
         </button>
-        <Timer
-          initialMinute={min}
-          initialSeconds={sec}
-          isActive={isActive}
-          cnt={cnt}
-          setCnt={setCnt}
-          setIsActive={setIsActive}
-          focusMode={focusMode}
-          setFocusMode={setFocusMode}
-        />
       </div>
     );
   } else {
+    // focus mode
     return (
       <div className="todo">
         <li className={`todo-item ${todo.completed ? "completed" : ""}`}>
@@ -101,6 +111,7 @@ const Todo = ({ text, todo, todos, setTodos, focusMode, setFocusMode }) => {
           setIsActive={setIsActive}
           focusMode={focusMode}
           setFocusMode={setFocusMode}
+          TimeUpHandler={TimeUpHandler}
         />
       </div>
     );
