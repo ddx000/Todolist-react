@@ -1,6 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import "./App.css";
+//import InputNumber from "react-input-number";
+import InputNumber from "rc-input-number";
 
 import Form from "./components/Form";
 import TodoList from "./components/ToDoList";
@@ -50,6 +52,15 @@ function App() {
       <header>
         <h1>DDX ToDo List</h1>
       </header>
+      <InputNumber
+        defaultValue={25}
+        min={10}
+        max={50}
+        step={5}
+        placeholder={"Minutes"}
+        onChange={setMins}
+      />
+
       <Form
         inputText={inputText}
         todos={todos}

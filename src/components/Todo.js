@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Timer from "./Timer";
 
-let sec = 5;
+let sec = 0;
 
 const Todo = ({
   text,
@@ -34,13 +34,13 @@ const Todo = ({
   const TimerHandler = () => {
     // time start
     setIsActive(!isActive);
-    setFocusMode(true);
+    setFocusMode(!focusMode);
     setTodos(
       todos.map((item) => {
         if (item.id === todo.id) {
           return {
             ...item,
-            active: true,
+            active: !todo.active,
           };
         }
         return item;
@@ -107,7 +107,7 @@ const Todo = ({
           className={`timer-btn ${isActive ? "actived" : ""}`}
         >
           <i className="fas fa-clock">
-            <span className="text_bottom">&nbsp; {todo.cnt} </span>
+            <span className="text_bottom"> Give Up </span>
           </i>
         </button>
         <Timer
