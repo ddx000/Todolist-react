@@ -24,6 +24,13 @@ const TodoList = ({
     ) {
       return;
     }
+
+    swapPositions(todos, destination.index, source.index);
+    setTodos(todos);
+  };
+
+  const swapPositions = (array, a, b) => {
+    [array[a], array[b]] = [array[b], array[a]];
   };
 
   return (
