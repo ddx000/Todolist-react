@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Timer from "./Timer";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 let sec = 0;
 
@@ -11,6 +12,7 @@ const Todo = ({
   focusMode,
   setFocusMode,
   mins,
+  index,
 }) => {
   const [isActive, setIsActive] = useState(false);
   const deleteHandler = () => {
@@ -68,32 +70,41 @@ const Todo = ({
 
   if (!focusMode) {
     return (
-      <div className="todo">
-        <li className={`todo-item ${todo.completed ? "completed" : ""}`}>
-          {text}
-        </li>
-        <button onClick={completeHandler} className="complete-btn">
-          <i className="fas fa-check"></i>
-        </button>
-        <button
-          onClick={() => {
-            if (window.confirm("Delete the item?")) {
-              deleteHandler();
-            }
-          }}
-          className="trash-btn"
-        >
-          <i className="fas fa-trash"></i>
-        </button>
-        <button
-          onClick={TimerHandler}
-          className={`timer-btn ${isActive ? "actived" : ""}`}
-        >
-          <i className="fas fa-clock">
-            <span className="text_bottom">&nbsp; {todo.cnt} </span>
-          </i>
-        </button>
-      </div>
+      <Draggable key={index} draggableId={index + " "} index={index}>
+        {(provided) => (
+          <div
+            className="todo"
+            ref={provided.innerRef}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+          >
+            <li className={`todo-item ${todo.completed ? "completed" : ""}`}>
+              {text}
+            </li>
+            <button onClick={completeHandler} className="complete-btn">
+              <i className="fas fa-check"></i>
+            </button>
+            <button
+              onClick={() => {
+                if (window.confirm("Delete the item?")) {
+                  deleteHandler();
+                }
+              }}
+              className="trash-btn"
+            >
+              <i className="fas fa-trash"></i>
+            </button>
+            <button
+              onClick={TimerHandler}
+              className={`timer-btn ${isActive ? "actived" : ""}`}
+            >
+              <i className="fas fa-clock">
+                <span className="text_bottom">&nbsp; {todo.cnt} </span>
+              </i>
+            </button>
+          </div>
+        )}
+      </Draggable>
     );
   } else {
     // focus mode

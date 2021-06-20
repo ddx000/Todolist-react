@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import "./App.css";
 //import InputNumber from "react-input-number";
+
 import InputNumber from "rc-input-number";
 
 import Form from "./components/Form";
