@@ -1,6 +1,6 @@
 import React from "react";
 import Todo from "./Todo";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 const TodoList = ({
   todos,
@@ -24,9 +24,11 @@ const TodoList = ({
     ) {
       return;
     }
+    console.log("before drag", todos);
 
     swapPositions(todos, destination.index, source.index);
-    setTodos(todos);
+    setTodos([...todos]);
+    console.log("after drag, ", todos);
   };
 
   const swapPositions = (array, a, b) => {

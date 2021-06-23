@@ -13,7 +13,6 @@ const Timer = ({
   const [minutes, setMinutes] = useState(initialMinute);
   const [seconds, setSeconds] = useState(initialSeconds);
   useEffect(() => {
-    console.log("use effect", minutes, seconds);
     let myInterval = setInterval(() => {
       if (isActive) {
         console.log("###");

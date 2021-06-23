@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Timer from "./Timer";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { Draggable } from "react-beautiful-dnd";
 
 let sec = 0;
 
@@ -110,6 +110,15 @@ const Todo = ({
     // focus mode
     return (
       <div className="todo">
+        <Timer
+          initialMinute={mins}
+          initialSeconds={sec}
+          isActive={isActive}
+          setIsActive={setIsActive}
+          focusMode={focusMode}
+          setFocusMode={setFocusMode}
+          TimeUpHandler={TimeUpHandler}
+        />
         <li className={`todo-item ${todo.completed ? "completed" : ""}`}>
           {text}
         </li>
@@ -121,15 +130,6 @@ const Todo = ({
             <span className="text_bottom"> Give Up </span>
           </i>
         </button>
-        <Timer
-          initialMinute={mins}
-          initialSeconds={sec}
-          isActive={isActive}
-          setIsActive={setIsActive}
-          focusMode={focusMode}
-          setFocusMode={setFocusMode}
-          TimeUpHandler={TimeUpHandler}
-        />
       </div>
     );
   }

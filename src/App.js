@@ -16,10 +16,12 @@ function App() {
   const [mins, setMins] = useState(25);
 
   useEffect(() => {
+    console.log("getLocalTodos");
     getLocalTodos();
   }, []);
 
   useEffect(() => {
+    console.log("saveLocalTodos");
     filterHandler();
     saveLocalTodos();
   }, [todos, focusMode]);
