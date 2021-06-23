@@ -4,17 +4,14 @@ import { useState, useEffect } from "react";
 const Timer = ({
   initialMinute,
   initialSeconds,
-  isActive,
-  cnt,
-  setCnt,
+  todoActive,
   TimeUpHandler,
 }) => {
-  //const { initialMinute = 25, initialSeconds = 0 } = props;
   const [minutes, setMinutes] = useState(initialMinute);
   const [seconds, setSeconds] = useState(initialSeconds);
   useEffect(() => {
     let myInterval = setInterval(() => {
-      if (isActive) {
+      if (todoActive) {
         console.log("###");
         setSeconds(seconds - 1);
         if (seconds === 0) {

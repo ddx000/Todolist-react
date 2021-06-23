@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Timer from "./Timer";
 import { Draggable } from "react-beautiful-dnd";
 
@@ -13,8 +13,8 @@ const Todo = ({
   setFocusMode,
   mins,
   index,
+  todoActive,
 }) => {
-  const [isActive, setIsActive] = useState(false);
   const deleteHandler = () => {
     setTodos(todos.filter((el) => el.id !== todo.id));
   };
@@ -35,7 +35,6 @@ const Todo = ({
 
   const TimerHandler = () => {
     // time start
-    setIsActive(!isActive);
     setFocusMode(!focusMode);
     setTodos(
       todos.map((item) => {
@@ -52,7 +51,6 @@ const Todo = ({
 
   const TimeUpHandler = () => {
     // time end
-    setIsActive(false);
     setFocusMode(false);
     setTodos(
       todos.map((item) => {
@@ -96,7 +94,7 @@ const Todo = ({
             </button>
             <button
               onClick={TimerHandler}
-              className={`timer-btn ${isActive ? "actived" : ""}`}
+              className={`timer-btn ${todoActive ? "actived" : ""}`}
             >
               <i className="fas fa-clock">
                 <span className="text_bottom">&nbsp; {todo.cnt} </span>
@@ -107,16 +105,13 @@ const Todo = ({
       </Draggable>
     );
   } else {
-    // focus mode
+    // focus mode, only show one item
     return (
       <div className="todo">
         <Timer
           initialMinute={mins}
           initialSeconds={sec}
-          isActive={isActive}
-          setIsActive={setIsActive}
-          focusMode={focusMode}
-          setFocusMode={setFocusMode}
+          todoActive={todoActive}
           TimeUpHandler={TimeUpHandler}
         />
         <li className={`todo-item ${todo.completed ? "completed" : ""}`}>
@@ -124,7 +119,7 @@ const Todo = ({
         </li>
         <button
           onClick={TimerHandler}
-          className={`timer-btn ${isActive ? "actived" : ""}`}
+          className={`timer-btn ${todoActive ? "actived" : ""}`}
         >
           <i className="fas fa-clock">
             <span className="text_bottom"> Give Up </span>

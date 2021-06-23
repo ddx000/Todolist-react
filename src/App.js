@@ -29,24 +29,31 @@ function App() {
   const filterHandler = () => {
     switch (focusMode) {
       case true:
+        console.log("filter by true");
         setFilteredTodos(todos.filter((todo) => todo.active === true));
+        console.log(filteredTodos);
         break;
       default:
+        console.log("filter by default");
         setFilteredTodos(todos);
+        console.log(filteredTodos);
         break;
     }
   };
 
   const saveLocalTodos = () => {
     localStorage.setItem("todos", JSON.stringify(todos));
+    localStorage.setItem("focusmode", focusMode);
   };
 
   const getLocalTodos = () => {
     if (localStorage.getItem("todos") === null) {
       localStorage.setItem("todos", JSON.stringify([]));
+      localStorage.setItem("focusmode", false);
     } else {
       let todoLocal = JSON.parse(localStorage.getItem("todos"));
       setTodos(todoLocal);
+      setFocusMode(localStorage.getItem("focusmode"));
     }
   };
 
@@ -64,12 +71,14 @@ function App() {
         onChange={setMins}
       />
 
-      <Form
-        inputText={inputText}
-        todos={todos}
-        setTodos={setTodos}
-        setInputText={setInputText}
-      />
+      {!focusMode && (
+        <Form
+          inputText={inputText}
+          todos={todos}
+          setTodos={setTodos}
+          setInputText={setInputText}
+        />
+      )}
       <TodoList
         todos={todos}
         setTodos={setTodos}

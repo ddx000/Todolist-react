@@ -53,6 +53,7 @@ const TodoList = ({
                     setFocusMode={setFocusMode}
                     mins={mins}
                     index={index}
+                    todoActive={todo.active}
                   />
                 ))}
                 {provided.placeholder}
