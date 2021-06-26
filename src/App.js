@@ -16,14 +16,15 @@ function App() {
   const [mins, setMins] = useState(25);
 
   useEffect(() => {
+    // If you give it an empty list, it will act as componentDidMount and only run once
     console.log("getLocalTodos");
     getLocalTodos();
   }, []);
 
   useEffect(() => {
     console.log("saveLocalTodos");
-    filterHandler();
     saveLocalTodos();
+    filterHandler();
   }, [todos, focusMode]);
 
   const filterHandler = () => {
@@ -43,17 +44,21 @@ function App() {
 
   const saveLocalTodos = () => {
     localStorage.setItem("todos", JSON.stringify(todos));
-    localStorage.setItem("focusmode", focusMode);
   };
 
   const getLocalTodos = () => {
     if (localStorage.getItem("todos") === null) {
       localStorage.setItem("todos", JSON.stringify([]));
-      localStorage.setItem("focusmode", false);
     } else {
       let todoLocal = JSON.parse(localStorage.getItem("todos"));
-      setTodos(todoLocal);
-      setFocusMode(localStorage.getItem("focusmode"));
+      setTodos(
+        todoLocal.map((item) => {
+          return {
+            ...item,
+            active: false,
+          };
+        })
+      );
     }
   };
 
