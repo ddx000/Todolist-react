@@ -65,16 +65,16 @@ function App() {
   return (
     <div className="App">
       <header>
-        <h1>DDX ToDo List</h1>
+        <h1> Task Timer </h1>
       </header>
-      <InputNumber
+      {/* <InputNumber
         defaultValue={25}
-        min={10}
+        min={0}
         max={50}
         step={5}
         placeholder={"Minutes"}
         onChange={setMins}
-      />
+      /> */}
 
       {!focusMode && (
         <Form

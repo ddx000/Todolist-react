@@ -1,6 +1,11 @@
 import React from "react";
 import { useState, useEffect } from "react";
 
+const playSound = () => {
+  const audio = new Audio(process.env.PUBLIC_URL + "/done_sound.mp3");
+  audio.play();
+};
+
 const Timer = ({
   initialMinute,
   initialSeconds,
@@ -21,6 +26,7 @@ const Timer = ({
             setMinutes(initialMinute);
             setSeconds(initialSeconds);
             TimeUpHandler();
+            playSound();
           } else {
             setMinutes(minutes - 1);
             setSeconds(59);
